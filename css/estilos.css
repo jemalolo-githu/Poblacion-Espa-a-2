@@ -1,0 +1,344 @@
+body {
+    /*
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    */
+
+    font-family: 'Arial', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white-color);
+    color: #333;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+svg {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+}
+path {
+    fill: #d3d3d3;
+    stroke: #333;
+    stroke-width: 0.5;
+    cursor: pointer;
+    transition: fill 0.2s;
+}
+
+path:hover {
+    fill: #999;
+}
+
+.selected {
+    fill: #4caf50 !important;
+}
+
+.custom-tooltip {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: var(--titulos-color);
+    margin-bottom: 30px;
+}
+
+.select-all-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    width:100%;
+}
+
+.select-all-checkbox {
+    margin-right: 10px;
+}
+
+.select-all-label {
+    font-weight: bold;
+}
+
+.contenedor-de-comunidades {
+    width: 300px;
+    height:680px;
+    margin-right: 20px;
+    border: 2px solid var(--primary-color);
+    padding:10px;
+    border-radius:10px;
+    overflow:auto;
+
+}
+
+.contenedor-del-mapa {
+    position: relative;
+    width: 800px;
+    height: 700px;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+   
+    border-radius: 8px;
+    flex-grow: 1;
+}
+
+.cuadro-provincia {
+    position: absolute;
+    background-color: rgba(52, 152, 219, 0.3);
+    border: 1px solid rgba(52, 152, 219, 0.5);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cuadro-provincia:hover {
+    background-color: rgba(52, 152, 219, 0.5);
+}
+
+.cuadro-provincia.selected {
+    background-color: rgba(46, 204, 113, 0.6);
+    border: 2px solid #2ecc71;
+    z-index: 10;
+}
+
+.label-provincia {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+    pointer-events: none;
+    text-shadow: 0 0 2px white;
+    z-index: 5;
+    word-wrap:break-word;
+}
+
+.circulo-ciudad-autonoma {
+    position: absolute;
+    /*  
+    background-color: rgba(155, 89, 182, 0.3);
+    border: 1px solid rgba(155, 89, 182, 0.5);
+    */
+    background-color: rgba(52, 152, 219, 0.3);
+    border: 1px solid rgba(52, 152, 219, 0.5);
+    
+    
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.circulo-ciudad-autonoma:hover {
+    background-color: rgba(155, 89, 182, 0.5);
+}
+
+.circulo-ciudad-autonoma.selected {
+    background-color: rgba(46, 204, 113, 0.6);
+    border: 2px solid #2ecc71;
+    z-index: 10;
+}
+
+.display-poblacion {
+    margin-top: 30px;
+    padding: 20px;
+    /*background-color: #2ecc71;*/
+    background-color: var(--resultado-color);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    position:sticky;
+    top:30px;
+}
+
+#total-display-poblacion {
+    color: orange;
+}
+
+.resultados {
+    position:sticky;
+    top:0;
+    z-index:999;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #34495e;
+    color: white;
+    border-radius: 8px;
+    width: 100%;
+    
+}
+
+#nProvincias-seleccionadas, #ttPoblacion-seleccionada{
+    color: orange;
+    margin-left:10px;
+}
+
+
+
+.resultados-item {
+    text-align: center;
+    display:flex;
+}
+
+.listas {
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+}
+
+.provincias-seleccionadas {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    width: 100%;
+    border: 2px solid var(--primary-color);;
+}
+
+.provincias-ordenadas {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    width: 100%;
+    border: 2px solid var(--primary-color);;
+}
+
+.nombre-comunidad {
+    font-weight: bold;
+    margin-top: 15px;
+    color: #2c3e50;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-top:1px solid rgb(187, 181, 166);
+    /*background-color: var(--secondary-color);*/
+}
+
+.nombre-comunidad::before {
+    content: "▶";
+    font-size: 10px;
+    margin-right: 5px;
+    transition: transform 0.2s;
+}
+
+.nombre-comunidad.expanded::before {
+    transform: rotate(90deg);
+}
+
+.listado-de-provincias {
+    margin-left: 20px;
+    margin-top: 5px;
+    display: none;
+    border:0px solid orange;
+    font-style: italic;
+    font-size:small;
+}
+
+.item-provincia {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    border:0px solid red;
+}
+
+.checkbox-provincia {
+    margin-right: 8px;
+   
+}
+
+.checkbox-comunidad {
+    margin-right: 8px;
+}
+
+
+/*
+.select-all {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--primary-color);;
+    cursor: pointer;
+    display: inline-block;
+    border:4px solid orange;
+}
+*/
+
+
+/* Filtros */
+ .filter-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display:flex;
+}
+
+.filter-title {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #2c3e50;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+    margin-top:10px;
+    
+}
+
+.filter-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    width:90px;
+    margin-top:-10px;
+}
+
+
+
+
+.filter-button {
+    padding: 2px 15px;
+    background-color: var(--primary-color);;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left:10px;
+   
+}
+
+.filter-button:hover {
+    background-color: #2980b9;
+}
+
+.filter-reset {
+    background-color: #e74c3c;
+}
+
+.filter-reset:hover {
+    background-color: #c0392b;
+}
+
