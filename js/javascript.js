@@ -2,92 +2,92 @@
 
 const datosDeProvincias = [
      // Andalucía
-    { id: "almeria", nombre: "Almería", poblacion: 731792, comunidad: "Andalucía" },
-    { id: "cadiz", nombre: "Cádiz", poblacion: 1239487, comunidad: "Andalucía" },
-    { id: "cordoba", nombre: "Córdoba", poblacion: 777547, comunidad: "Andalucía" },
-    { id: "granada", nombre: "Granada", poblacion: 921987, comunidad: "Andalucía" },
-    { id: "huelva", nombre: "Huelva", poblacion: 521968, comunidad: "Andalucía" },
-    { id: "jaen", nombre: "Jaén", poblacion: 631381, comunidad: "Andalucía" },
-    { id: "malaga", nombre: "Málaga", poblacion: 1692985, comunidad: "Andalucía" },
-    { id: "sevilla", nombre: "Sevilla", poblacion: 1958755, comunidad: "Andalucía" },
+    { id: "almeria", name: "Almería", population: 731792, comunidad: "Andalucía" },
+    { id: "cadiz", name: "Cádiz", population: 1239487, comunidad: "Andalucía" },
+    { id: "cordoba", name: "Córdoba", population: 777547, comunidad: "Andalucía" },
+    { id: "granada", name: "Granada", population: 921987, comunidad: "Andalucía" },
+    { id: "huelva", name: "Huelva", population: 521968, comunidad: "Andalucía" },
+    { id: "jaen", name: "Jaén", population: 631381, comunidad: "Andalucía" },
+    { id: "malaga", name: "Málaga", population: 1692985, comunidad: "Andalucía" },
+    { id: "sevilla", name: "Sevilla", population: 1958755, comunidad: "Andalucía" },
     
     // Aragón
-    { id: "huesca", nombre: "Huesca", poblacion: 219345, comunidad: "Aragón" },
-    { id: "teruel", nombre: "Teruel", poblacion: 134572, comunidad: "Aragón" },
-    { id: "zaragoza", nombre: "Zaragoza", poblacion: 972528, comunidad: "Aragón" },
+    { id: "huesca", name: "Huesca", population: 219345, comunidad: "Aragón" },
+    { id: "teruel", name: "Teruel", population: 134572, comunidad: "Aragón" },
+    { id: "zaragoza", name: "Zaragoza", population: 972528, comunidad: "Aragón" },
     
     // Asturias
-    { id: "asturias", nombre: "Asturias", poblacion: 1011796, comunidad: "Asturias" },
+    { id: "asturias", name: "Asturias", population: 1011796, comunidad: "Asturias" },
     
     // Canarias
-    { id: "las-palmas", nombre: "Las Palmas", poblacion: 1139281, comunidad: "Canarias" },
-    { id: "santa-cruz", nombre: "Santa Cruz de Tenerife", poblacion: 1049438, comunidad: "Canarias" },
+    { id: "las-palmas", name: "Las Palmas", population: 1139281, comunidad: "Canarias" },
+    { id: "santa-cruz", name: "Santa Cruz de Tenerife", population: 1049438, comunidad: "Canarias" },
     
     // Cantabria
-    { id: "cantabria", nombre: "Cantabria", poblacion: 582905, comunidad: "Cantabria" },
+    { id: "cantabria", name: "Cantabria", population: 582905, comunidad: "Cantabria" },
     
      // Cataluña
-    { id: "barcelona", nombre: "Barcelona", poblacion: 5670282, comunidad: "Cataluña" },
-    { id: "girona", nombre: "Girona", poblacion: 781788, comunidad: "Cataluña" },
-    { id: "lleida", nombre: "Lleida", poblacion: 439253, comunidad: "Cataluña" },
-    { id: "tarragona", nombre: "Tarragona", poblacion: 821453, comunidad: "Cataluña" },
+    { id: "barcelona", name: "Barcelona", population: 5670282, comunidad: "Cataluña" },
+    { id: "girona", name: "Girona", population: 781788, comunidad: "Cataluña" },
+    { id: "lleida", name: "Lleida", population: 439253, comunidad: "Cataluña" },
+    { id: "tarragona", name: "Tarragona", population: 821453, comunidad: "Cataluña" },
     
      // Castilla y León
-    { id: "avila", nombre: "Ávila", poblacion: 158421, comunidad: "Castilla y León" },
-    { id: "burgos", nombre: "Burgos", poblacion: 357650, comunidad: "Castilla y León" },
-    { id: "leon", nombre: "León", poblacion: 456439, comunidad: "Castilla y León" },
-    { id: "palencia", nombre: "Palencia", poblacion: 160321,  comunidad: "Castilla y León" },
-    { id: "salamanca", nombre: "Salamanca", poblacion: 328674,  comunidad: "Castilla y León" },
-    { id: "segovia", nombre: "Segovia", poblacion: 153478, comunidad: "Castilla y León" },
-    { id: "soria", nombre: "Soria", poblacion: 88591, comunidad: "Castilla y León" },
-    { id: "valladolid", nombre: "Valladolid", poblacion: 519249, comunidad: "Castilla y León" },
-    { id: "zamora", nombre: "Zamora", poblacion: 168725, comunidad: "Castilla y León" },
+    { id: "avila", name: "Ávila", population: 158421, comunidad: "Castilla y León" },
+    { id: "burgos", name: "Burgos", population: 357650, comunidad: "Castilla y León" },
+    { id: "leon", name: "León", population: 456439, comunidad: "Castilla y León" },
+    { id: "palencia", name: "Palencia", population: 160321,  comunidad: "Castilla y León" },
+    { id: "salamanca", name: "Salamanca", population: 328674,  comunidad: "Castilla y León" },
+    { id: "segovia", name: "Segovia", population: 153478, comunidad: "Castilla y León" },
+    { id: "soria", name: "Soria", population: 88591, comunidad: "Castilla y León" },
+    { id: "valladolid", name: "Valladolid", population: 519249, comunidad: "Castilla y León" },
+    { id: "zamora", name: "Zamora", population: 168725, comunidad: "Castilla y León" },
     
     // Castilla-La Mancha
-    { id: "albacete", nombre: "Albacete", poblacion: 388786, comunidad: "Castilla-La Mancha" },
-    { id: "ciudad-real", nombre: "Ciudad Real", poblacion: 495045, comunidad: "Castilla-La Mancha" },
-    { id: "cuenca", nombre: "Cuenca", poblacion: 196139, comunidad: "Castilla-La Mancha" },
-    { id: "guadalajara", nombre: "Guadalajara", poblacion: 261995, comunidad: "Castilla-La Mancha" },
-    { id: "toledo", nombre: "Toledo", poblacion: 703772, comunidad: "Castilla-La Mancha" },
+    { id: "albacete", name: "Albacete", population: 388786, comunidad: "Castilla-La Mancha" },
+    { id: "ciudad-real", name: "Ciudad Real", population: 495045, comunidad: "Castilla-La Mancha" },
+    { id: "cuenca", name: "Cuenca", population: 196139, comunidad: "Castilla-La Mancha" },
+    { id: "guadalajara", name: "Guadalajara", population: 261995, comunidad: "Castilla-La Mancha" },
+    { id: "toledo", name: "Toledo", population: 703772, comunidad: "Castilla-La Mancha" },
     
     // Comunidad Valenciana
-    { id: "alicante", nombre: "Alicante", poblacion: 1882159, comunidad: "Comunidad Valenciana" },
-    { id: "castellon", nombre: "Castellón", poblacion: 587064, comunidad: "Comunidad Valenciana" },
-    { id: "valencia", nombre: "Valencia", poblacion: 2580643, comunidad: "Comunidad Valenciana" },
+    { id: "alicante", name: "Alicante", population: 1882159, comunidad: "Comunidad Valenciana" },
+    { id: "castellon", name: "Castellón", population: 587064, comunidad: "Comunidad Valenciana" },
+    { id: "valencia", name: "Valencia", population: 2580643, comunidad: "Comunidad Valenciana" },
     
      // Extremadura
-    { id: "badajoz", nombre: "Badajoz", poblacion: 669943, comunidad: "Extremadura" },
-    { id: "caceres", nombre: "Cáceres", poblacion: 391850,  comunidad: "Extremadura" },
+    { id: "badajoz", name: "Badajoz", population: 669943, comunidad: "Extremadura" },
+    { id: "caceres", name: "Cáceres", population: 391850,  comunidad: "Extremadura" },
     
     // Galicia
-    { id: "a-coruna", nombre: "A Coruña", poblacion: 1119078, comunidad: "Galicia" },
-    { id: "lugo", nombre: "Lugo", poblacion: 326013, comunidad: "Galicia" },
-    { id: "ourense", nombre: "Ourense", poblacion: 305223, comunidad: "Galicia" },
-    { id: "pontevedra", nombre: "Pontevedra", poblacion: 941772, comunidad: "Galicia" },
+    { id: "a-coruna", name: "A Coruña", population: 1119078, comunidad: "Galicia" },
+    { id: "lugo", name: "Lugo", population: 326013, comunidad: "Galicia" },
+    { id: "ourense", name: "Ourense", population: 305223, comunidad: "Galicia" },
+    { id: "pontevedra", name: "Pontevedra", population: 941772, comunidad: "Galicia" },
     
     // Islas Baleares
-    { id: "baleares", nombre: "Islas Baleares", poblacion: 1208135, comunidad: "Islas Baleares" },
+    { id: "baleares", name: "Islas Baleares", population: 1208135, comunidad: "Islas Baleares" },
     
     // La Rioja
-    { id: "la-rioja", nombre: "La Rioja", poblacion: 319914, comunidad: "La Rioja" },
+    { id: "la-rioja", name: "La Rioja", population: 319914, comunidad: "La Rioja" },
     
     // Madrid
-    { id: "madrid", nombre: "Madrid", poblacion: 6779888, comunidad: "Madrid" },
+    { id: "madrid", name: "Madrid", population: 6779888, comunidad: "Madrid" },
 
     // Navarra
-    { id: "navarra", nombre: "Navarra", poblacion: 661197, comunidad: "Navarra" },
+    { id: "navarra", name: "Navarra", population: 661197, comunidad: "Navarra" },
     
     // País Vasco
-    { id: "alava", nombre: "Álava", poblacion: 334412, comunidad: "País Vasco" },
-    { id: "gipuzkoa", nombre: "Gipuzkoa", poblacion: 724634, comunidad: "País Vasco" },
-    { id: "vizcaya", nombre: "Vizcaya", poblacion: 1153117, comunidad: "País Vasco" },
+    { id: "alava", name: "Álava", population: 334412, comunidad: "País Vasco" },
+    { id: "gipuzkoa", name: "Gipuzkoa", population: 724634, comunidad: "País Vasco" },
+    { id: "vizcaya", name: "Vizcaya", population: 1153117, comunidad: "País Vasco" },
     
     // Región de Murcia
-    { id: "murcia", nombre: "Murcia", poblacion: 1511251, comunidad: "Región de Murcia" },
+    { id: "murcia", name: "Murcia", population: 1511251, comunidad: "Región de Murcia" },
     
     // Ciudades autónomas
-    { id: "ceuta", nombre: "Ceuta", poblacion: 84202, comunidad: "Ciudades Autónomas" },
-    { id: "melilla", nombre: "Melilla", poblacion: 87076, comunidad: "Ciudades Autónomas" }
+    { id: "ceuta", name: "Ceuta", population: 84202, comunidad: "Ciudades Autónomas" },
+    { id: "melilla", name: "Melilla", population: 87076, comunidad: "Ciudades Autónomas" }
 
 ];
         
@@ -95,21 +95,40 @@ const datosDeProvincias = [
 // Variables de estado
 let provinciasSeleccionadas = [];
 
-// CARGAR EL MAPA SVG
+function cargarMapaSVG() {
+    // CARGAR EL MAPA SVG
   fetch("svg/spain-provinces.svg")
+ 
     .then(response => response.text())
     .then(svgData => {
         // meto el codigo HTML en el div del mapa
         const container = document.getElementById("contenedor-del-mapa");
         container.innerHTML = svgData;
-       
 
-        //const paths   = document.querySelectorAll("svg path[id]");
+        
+        // Aplicamos escala CSS
+        const svgElement = container.querySelector('svg');
+        
+        if (svgElement) {
+            // Aplicamos escala CSS
+            svgElement.style.transform = 'scale(1.5)';
+            svgElement.style.transformOrigin = 'top left'; // Escala desde la esquina superior izquierda
+            
+            // Aseguramos que el contenedor no recorte el SVG escalado
+            container.style.display = 'inline-block';
+            container.style.overflow = 'visible';
+            
+          
+        }
+        
+
+    
+
         const paths = container.querySelectorAll("path");
         // const display = document.getElementById("selected-name");
 
         // Crear los eventos de cada provincia (del mapa)
-         let n=0;
+       
         paths.forEach(path => {
             
             // los titles se muestran solos si está en formato <path d="..." id=".."><title></title><path>
@@ -117,51 +136,77 @@ let provinciasSeleccionadas = [];
             // Eventos click para marcar y desmarcar
            
             const id = path.id;
-            console.log(n+" "+id);
-            path.addEventListener("click", () => {
             
-                
-                if (path.classList.contains("selected")) {
-                    path.classList.remove("selected");
-                    provinciasSeleccionadas = provinciasSeleccionadas.filter(p => p !== id);
-                } else {
-                    path.classList.add("selected");
-                    provinciasSeleccionadas.push(id);
-                }
-
-                /*
-                display.textContent =
-                    provinciasSeleccionadas.length > 0
-                    ? "Provincias seleccionadas: " + provinciasSeleccionadas.join(", ")
-                    : "Provincias seleccionadas: ninguna";
-                */
-                
-                alterarProvincia(id);
+            path.addEventListener("click", () => {
+                toggleProvince(path.id);
             });
-
-
-       
       });
     });
+}
+   
 
 
-// ***************************
+// *******************************
 // Inicializar la aplicación
-function inicio() {   
-// ***************************
-      // crearAreasDelMapa();
+// *******************************
+function inicio() {
+    cargarMapaSVG();
     crearPanelDeComunidades();
-    crearEventosDelFiltro();
-    crearEventoSelecTodas();
-    // actualizarPoblacionSeleccionada();
+    setupFilter();
+    setupSelectAll();
+    actualizarPoblacionSeleccionada();
+}
+
+
+// *********************************
+// Configurar el checkbox "Seleccionar todas"
+function setupSelectAll() {
+    const selectAllCheckbox = document.getElementById('select-all-provinces');
+    
+    selectAllCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            selectAllProvinces();
+        } else {
+            
+            resetSelection();
+            
+        }
+    });
+}
+
+// *******************************
+// Seleccionar todas las provincias
+function selectAllProvinces() {
+    
+    provinciasSeleccionadas = [...datosDeProvincias];
+    
+    // Actualizar todos los checkboxes
+    document.querySelectorAll('.checkbox-provincia').forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    
+    // Actualizar checkboxes de comunidades
+    document.querySelectorAll('.checkbox-comunidad').forEach(checkbox => {
+        checkbox.checked = true;
+        checkbox.indeterminate = false;
+    });
+    
+    // Actualizar mapa y estadísticas
+    actualizarAreasSeleccionadas();
+    actualizarPoblacionSeleccionada();
+    actualizarListaDeProvincias();
+        
 }
 
 
 
-// ***************************
+
+
+
+
+// ****************************************
 // Crear panel de comunidades y provincias
 function crearPanelDeComunidades() {
-// ***************************
     const panel = document.getElementById('contenedor-de-comunidades');
     
     // Agrupar provincias por comunidad
@@ -172,6 +217,8 @@ function crearPanelDeComunidades() {
         }
         comunidades[provincia.comunidad].push(provincia);
     });
+    
+    
     
     // Crear elementos del panel
     for (const comunidad in comunidades) {
@@ -187,7 +234,7 @@ function crearPanelDeComunidades() {
         comunidadCheckbox.type = 'checkbox';
         comunidadCheckbox.className = 'checkbox-comunidad';
         comunidadCheckbox.dataset.comunidad = comunidad;
-        comunidadCheckbox.addEventListener('change', (e) => alterarComunidad(comunidad, e.target.checked));
+        comunidadCheckbox.addEventListener('change', (e) => toggleCommunity(comunidad, e.target.checked));
         comunidadCabecera.prepend(comunidadCheckbox);
         
         // Lista de provincias
@@ -199,7 +246,7 @@ function crearPanelDeComunidades() {
         const selectAll = document.createElement('span');
         selectAll.className = 'select-all';
         selectAll.textContent = 'Seleccionar todas';
-        selectAll.addEventListener('click', () => alterarTodasLasProvincias(community, true));
+        selectAll.addEventListener('click', () => toggleAllProvinces(community, true));
         comunidadCabecera.appendChild(selectAll);
         */
 
@@ -212,10 +259,10 @@ function crearPanelDeComunidades() {
             checkbox.type = 'checkbox';
             checkbox.className = 'checkbox-provincia';
             checkbox.dataset.id = provincia.id;
-            checkbox.addEventListener('change', (e) => alterarProvincia(provincia.id, e.target.checked));
+            checkbox.addEventListener('change', (e) => toggleProvince(provincia.id, e.target.checked));
             
             const label = document.createElement('label');
-            label.textContent = `${provincia.nombre} (${provincia.poblacion.toLocaleString()} hab.)`;
+            label.textContent = `${provincia.name} (${provincia.population.toLocaleString()} hab.)`;
             
             provinciaItem.appendChild(checkbox);
             provinciaItem.appendChild(label);
@@ -236,41 +283,39 @@ function crearPanelDeComunidades() {
     }
 }
 
+// ****************************************
 // Filtro
-// **********************************
 // Configurar el filtro de población
-function crearEventosDelFiltro() {
-// **********************************
+function setupFilter() {
     const applyFilterBtn = document.getElementById('apply-filter');
     const resetFilterBtn = document.getElementById('reset-filter');
     
-    applyFilterBtn.addEventListener('click', aplicarFiltroPoblacion);
-    resetFilterBtn.addEventListener('click', reiniciarSeleccion);
+    applyFilterBtn.addEventListener('click', applyPoblacionFilter);
+    resetFilterBtn.addEventListener('click', resetSelection);
 }
 
 
-// **********************************
+// ****************************************
 // Aplicar filtro por población
-function aplicarFiltroPoblacion() {
-// **********************************
+function applyPoblacionFilter() {
     const minPoblacion = parseInt(document.getElementById('min-population').value) || 0;
     const maxPoblacion = parseInt(document.getElementById('max-population').value) || Infinity;
     
     // Deseleccionar todas las provincias primero
-    reiniciarSeleccion(false);
+    resetSelection(false);
     
     // Seleccionar las provincias que cumplen con el filtro
-    datosDeProvincias.forEach(provincia => {
-        if (provincia.poblacion >= minPoblacion && provincia.poblacion <= maxPoblacion) {
-            alterarProvincia(provincia.id, true);
+    datosDeProvincias.forEach(province => {
+        if (province.population >= minPoblacion && province.population <= maxPoblacion) {
+            toggleProvince(province.id, true);
         }
     });
 }
 
-// **********************************
+
+// ****************************************
 // Reiniciar selección
-function reiniciarSeleccion(update = true) {
-// **********************************
+function resetSelection(update = true) {
     provinciasSeleccionadas = [];
     
     // Actualizar checkboxes
@@ -289,16 +334,16 @@ function reiniciarSeleccion(update = true) {
     if (update) {
         actualizarPoblacionSeleccionada();
         actualizarListaDeProvincias();
-    }   
+       
+    }
+        
 }
 
-
-// **********************************
+// ****************************************
 // Seleccionar/deseleccionar provincia
-function alterarProvincia(provinciaId, isChecked = null) {
-// **********************************
+function toggleProvince(provinciaId, isChecked = null) {
     const provincia = datosDeProvincias.find(p => p.id === provinciaId);
-    const index     = provinciasSeleccionadas.findIndex(p => p.id === provinciaId);
+    const index = provinciasSeleccionadas.findIndex(p => p.id === provinciaId);
     
     // Determinar nuevo estado
     const shouldSelect = isChecked !== null ? isChecked : index === -1;
@@ -316,7 +361,7 @@ function alterarProvincia(provinciaId, isChecked = null) {
     }
     
     // Actualizar checkbox de la comunidad
-    actualizarCheckBoxComunidad(provincia.comunidad);
+    updateCommunityCheckbox(provincia.comunidad);
 
     // Actualizar checkbox "Seleccionar todas"
     actualizarSelectAllCheckbox();
@@ -328,14 +373,25 @@ function alterarProvincia(provinciaId, isChecked = null) {
 
 
 
+// ****************************************
+// Actualizar el estado del checkbox "Seleccionar todas"
+function actualizarSelectAllCheckbox() {
+    const selectAllCheckbox = document.getElementById('select-all-provinces');
+    if (provinciasSeleccionadas.length === 0) {
+        selectAllCheckbox.checked = false;
+    } else if (provinciasSeleccionadas.length === datosDeProvincias.length) {
+        selectAllCheckbox.checked = true;
+    } else {
+        selectAllCheckbox.checked = false;
+    }
+}
 
 
 
 
-// **********************************
+// ****************************************
 // Seleccionar/deseleccionar toda una comunidad
-function alterarComunidad(comunidad, isChecked) {
-// **********************************
+function toggleCommunity(comunidad, isChecked) {
     const comunidadProvincias = datosDeProvincias.filter(p => p.comunidad === comunidad);
     
     comunidadProvincias.forEach(provincia => {
@@ -367,24 +423,22 @@ function alterarComunidad(comunidad, isChecked) {
 
 
 
-// ****************************
+// ****************************************
 // Seleccionar/deseleccionar todas las provincias de una comunidad
-function alterarTodasLasProvincias(comunidad, isChecked) {
-// ****************************
+function toggleAllProvinces(comunidad, isChecked) {
     const comunidadCheckbox = document.querySelector(`.checkbox-comunidad[data-comunidad="${comunidad}"]`);
     if (comunidadCheckbox) {
         comunidadCheckbox.checked = isChecked;
-        alterarComunidad(comunidad, isChecked);
+        toggleCommunity(comunidad, isChecked);
     }
 }
 
 
 
-// ****************************
+// ****************************************
 // Actualizar el estado del checkbox de la comunidad
-function actualizarCheckBoxComunidad(comunidad) {
-// ****************************
-    //console.log("Entro en Actualizar Estado comunidad");
+function updateCommunityCheckbox(comunidad) {
+    console.log("Entro en Actualizo Estado comunidad");
     const comunidadProvincias = datosDeProvincias.filter(p => p.comunidad === comunidad);
     const comunidadCheckbox = document.querySelector(`.checkbox-comunidad[data-comunidad="${comunidad}"]`);
     
@@ -404,68 +458,39 @@ function actualizarCheckBoxComunidad(comunidad) {
     }
 }
 
-
-// **********************************
-// Actualizar el estado del checkbox "Seleccionar todas"
-function actualizarSelectAllCheckbox() {
-// **********************************
-    const selectAllCheckbox = document.getElementById('select-all-provinces');
-    if (provinciasSeleccionadas.length === 0) {
-        selectAllCheckbox.checked = false;
-    } else if (provinciasSeleccionadas.length === datosDeProvincias.length) {
-        selectAllCheckbox.checked = true;
-    } else {
-        selectAllCheckbox.checked = false;
-    }
-}
-
-
-
-
-// **********************************
-// Configurar el checkbox "Seleccionar todas"
-function crearEventoSelecTodas() {
-// **********************************
-  const selectAllCheckbox = document.getElementById('select-all-provinces');
+// ****************************************
+// Actualizar el estilo de las áreas seleccionadas
+function actualizarAreasSeleccionadas() {
+    const areas = document.getElementById("contenedor-del-mapa").querySelectorAll('path');
     
-  selectAllCheckbox.addEventListener('change', function() {
-    if (this.checked) {
-        selectTodasLasProvincias();
-    } else {
-        reiniciarSeleccion();
-    }
-  });
-
-}
+    areas.forEach(area => {
         
-// **********************************
-// Seleccionar todas las provincias
-function selectTodasLasProvincias() {
-// **********************************
-    
-  provinciasSeleccionadas = [...datosDeProvincias];
+        const isSelected = provinciasSeleccionadas.find(p => p.id === area.id);
+        if (isSelected) {
+            area.classList.add('selected');
+        } else {
+            area.classList.remove('selected');
+        }
+        /*
+        if (path.classList.contains("selected")) {
+            path.classList.remove("selected");
+            provinciasSeleccionadas = provinciasSeleccionadas.filter(p => p !== id);
+        } else {
+            path.classList.add("selected");
+            provinciasSeleccionadas.push(id);
+        }
+        */
 
-  // Actualizar todos los checkboxes
-  document.querySelectorAll('.checkbox-provincia').forEach(checkbox => {
-      checkbox.checked = true;
-  });
 
-  // Actualizar checkboxes de comunidades
-  document.querySelectorAll('.checkbox-comunidad').forEach(checkbox => {
-      checkbox.checked = true;
-      checkbox.indeterminate = false;
-  });
 
-  // Actualizar mapa y estadísticas
-  actualizarAreasSeleccionadas();
-  actualizarPoblacionSeleccionada();
-  actualizarListaDeProvincias();      
+
+
+    });
 }
 
-// **********************************
+// ****************************************
 // Actualizar las estadísticas
 function actualizarPoblacionSeleccionada() {
-// **********************************
     // Calcular población total seleccionada
     const selectedPoblacion = provinciasSeleccionadas.reduce((sum, provincia) => sum + provincia.population, 0);
     
@@ -476,10 +501,9 @@ function actualizarPoblacionSeleccionada() {
 }
 
 
-// **********************************
+// ****************************************
 // Actualizar la lista de provincias seleccionadas
 function actualizarListaDeProvincias() {
-// **********************************
     const list = document.getElementById('lista-provincias');
     list.innerHTML = '';
     
@@ -506,15 +530,12 @@ function actualizarListaDeProvincias() {
         });
         list.appendChild(subList);
     }
-
-    // Mostrar tb la lista ordenada por población
     actualizarListaDeProvinciasOrdenadas();
 }
 
-// **********************************
+// ****************************************
 // Actualizar la lista de provincias ordenadas por poblacion
 function actualizarListaDeProvinciasOrdenadas() {
-// **********************************
     const list = document.getElementById('lista-provincias-ordenadas');
     list.innerHTML = '';
     
@@ -552,10 +573,7 @@ function actualizarListaDeProvinciasOrdenadas() {
 
 
 
- 
-
-
+// ****************************************
 // Iniciar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', inicio);
-
-
+// ****************************************
