@@ -150,11 +150,11 @@ function cargarMapaSVG() {
 // Inicializar la aplicación
 // *******************************
 function inicio() {
-    cargarMapaSVG();
-    crearPanelDeComunidades();
-    setupFilter();
-    setupSelectAll();
-    actualizarPoblacionSeleccionada();
+    cargarMapaSVG();                            // Cargar el mapa svg con escala (1.5)
+    crearPanelDeComunidades();                  // Crear el panel de checkboxes
+    setupFilter();                              // crear evento para el botón filtrar por poblacion
+    setupSelectAll();                           // Crear evento checkbox Seleccionar todas las provincias
+    //actualizarPoblacionSeleccionada();
 }
 
 
@@ -197,11 +197,6 @@ function selectAllProvinces() {
     actualizarListaDeProvincias();
         
 }
-
-
-
-
-
 
 
 // ****************************************
@@ -284,22 +279,50 @@ function crearPanelDeComunidades() {
 }
 
 // ****************************************
-// Filtro
-// Configurar el filtro de población
+// Filtros
+// Crear evento para el boton filtrar por población
 function setupFilter() {
     const applyFilterBtn = document.getElementById('apply-filter');
     const resetFilterBtn = document.getElementById('reset-filter');
     
     applyFilterBtn.addEventListener('click', applyPoblacionFilter);
     resetFilterBtn.addEventListener('click', resetSelection);
+
+    let minPopulationInput = document.getElementById("min-population");
+    let maxPopulationInput = document.getElementById("max-population");
+
+    
+    // Evento minPopulation para puntos de millares
+    minPopulationInput.addEventListener('input', function(e) {
+        // Acepta solo numeros
+        let value = this.value.replace(/[^0-9]/g, '');
+        if (value.length > 0) {
+            minPopulationInput.value = parseInt(value, 10).toLocaleString('es-ES');
+        }
+    });
+
+
+    // Evento maxPopulation para puntos de millares
+    maxPopulationInput.addEventListener('input', function(e) {
+        // Acepta solo numeros
+        let value = this.value.replace(/[^0-9]/g, '');
+        if (value.length > 0) { 
+            maxPopulationInput.value = parseInt(value, 10).toLocaleString('es-ES');
+        }
+    });
+    
+
 }
 
 
 // ****************************************
 // Aplicar filtro por población
 function applyPoblacionFilter() {
-    const minPoblacion = parseInt(document.getElementById('min-population').value) || 0;
-    const maxPoblacion = parseInt(document.getElementById('max-population').value) || Infinity;
+    let minPoblacion = document.getElementById('min-population').value;
+    let maxPoblacion = document.getElementById('max-population').value;
+    // Quito los puntos de millares 
+    minPoblacion = minPoblacion.replaceAll(".","");
+    maxPoblacion = maxPoblacion.replaceAll(".","");
     
     // Deseleccionar todas las provincias primero
     resetSelection(false);
@@ -438,7 +461,7 @@ function toggleAllProvinces(comunidad, isChecked) {
 // ****************************************
 // Actualizar el estado del checkbox de la comunidad
 function updateCommunityCheckbox(comunidad) {
-    console.log("Entro en Actualizo Estado comunidad");
+   
     const comunidadProvincias = datosDeProvincias.filter(p => p.comunidad === comunidad);
     const comunidadCheckbox = document.querySelector(`.checkbox-comunidad[data-comunidad="${comunidad}"]`);
     
@@ -544,7 +567,6 @@ function actualizarListaDeProvinciasOrdenadas() {
     let provinciasOrdenadas = [...provinciasSeleccionadas];
     
     provinciasOrdenadas.sort((a,b) => b.population - a.population);
-    console.log(provinciasOrdenadas);
     
     
     // Mostrar en la lista

@@ -30,20 +30,13 @@
         <!-- Después, el Panel de comunidades y provincias se generará con JavaScript -->
     </div>
    
-   <div class="contenedor-del-mapa" id="contenedor-del-mapa">
-   
-   <div class="contenedor-del-mapa-old" id="contenedor-del-mapa-old">
-      <!-- Las áreas de provincias se generarán con JavaScript -->
-       
-   </div>
-
-   </div>
+   <div class="contenedor-del-mapa" id="contenedor-del-mapa"></div>
    
    <div class="filter-container">
         <div class="filter-title">Filtrar por población. </div>
         <div class="filter-controls">
-            Mayor de <input type="number" id="min-population" class="filter-input" placeholder="Mínimo" min="0" value="100000" step="10000">
-            y menor de <input type="number" id="max-population" class="filter-input" placeholder="Máximo" min="0" value="200000" step="10000">
+            Mayor de <input type="text" id="min-population" class="filter-input" placeholder="Mínimo">
+            y menor de <input type="text" id="max-population" class="filter-input" placeholder="Máximo">
         </div>
         <button id="apply-filter" class="filter-button">Aplicar filtro</button>
         <button id="reset-filter" class="filter-button filter-reset">Reiniciar selección</button>
