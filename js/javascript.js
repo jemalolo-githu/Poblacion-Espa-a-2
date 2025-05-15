@@ -472,13 +472,9 @@ function toggleProvince(provinciaId, isChecked = null) {
             const nombreFoto = document.getElementById("div-flotante").style.backgroundImage;    
              
             if ('url("img/'+provinciaId+'.jpg")'==nombreFoto){
-                
-                aciertos++;
-                avisarAcierto();
+                anotarAcierto();
             }else {
-                
-                fallos++;
-                avisarFallo();
+                anotarFallo();
             }
 
         } else {
@@ -486,7 +482,7 @@ function toggleProvince(provinciaId, isChecked = null) {
         }
     } else {
         
-        dejarDeJugar();
+        pausarElJuego();
         
         // alert("No muestro la foto");
     }
@@ -885,7 +881,7 @@ document.addEventListener('DOMContentLoaded', function() {
         floatingWindow.style.display = 'none';
         
         // Dejar de jugar
-        dejarDeJugar();
+        pausarElJuego();
         
     });
 
@@ -926,6 +922,12 @@ e.addEventListener("click",()=>{
     }
 });
 
+const e0 = document.getElementById("estadisticas-closeBtn");
+e0.addEventListener("click",()=>{
+    const f0 = document.getElementById("contenedor-estadisticas");
+        f0.style.display="none"; 
+});
+
 
 // Evento de alternar ver / ocultar la foto en el div flotante
 const e1 = document.getElementById("boton-FotoProvincia");
@@ -935,7 +937,7 @@ e1.addEventListener("click",()=>{
         f1.style.display="none"; 
         
         // Dejar de jugar
-        dejarDeJugar();
+        pausarElJuego();
         
 
     } else {
@@ -985,7 +987,7 @@ const aciertoModal = document.getElementById('aciertoModal');
 const falloModal = document.getElementById('falloModal');
 const aciertoSound = document.getElementById('aciertoSound');
 const falloSound = document.getElementById('falloSound');
-
+const finalSound = document.getElementById('finalSound');
 
 
 // Función para mostrar el modal
@@ -1005,15 +1007,41 @@ window.addEventListener('click', function(event) {
     }
 });
 
-function dejarDeJugar() {
-    estoyJugando = false;   // por si acaso
+function pausarElJuego() {
+    estoyJugando = false; 
+}
+
+
+function reiniciarEstadisticas() {
+
+    // Finalizo la tanda de preguntas
     preguntas = 0;
     aciertos= 0;
     fallos = 0;
+    estoyJugando = false;
+    actualizarEstadisticas();
+    
+    finalSound.currentTime = 0;// Reiniciar el sonido si ya estaba reproduciéndose
+    mostrarConfeti();
+    finalSound.play();
+    
+}
+
+function actualizarEstadisticas() {
+    document.getElementById("preguntas").textContent = preguntas;
+    document.getElementById("aciertos").textContent = aciertos;
+    document.getElementById("fallos").textContent = fallos;
+    if (preguntas>0) {
+        document.getElementById("porcentaje").textContent = (100*parseFloat(aciertos/(aciertos+fallos))).toFixed(2)+"%";
+    } else {
+        document.getElementById("porcentaje").textContent="0%";
+    }
 }
 
 // *********************
-function avisarAcierto() {
+function anotarAcierto() {
+    aciertos++;
+    actualizarEstadisticas();
     mostrarModal('aciertoModal');
     aciertoSound.currentTime = 0; // Reiniciar el sonido si ya estaba reproduciéndose
     aciertoSound.play();
@@ -1021,15 +1049,128 @@ function avisarAcierto() {
 }
 
 // *********************
-function avisarFallo() {
+function anotarFallo() {
+    fallos++;
+    actualizarEstadisticas();
     mostrarModal('falloModal');
-    falloSound.currentTime = 0;
+    falloSound.currentTime = 0;// Reiniciar el sonido si ya estaba reproduciéndose
     falloSound.play();
 }
 
 
+// COnfeti ************************
+// Colores para el confeti
+        const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#ff6', '#6ff', '#f6f'];
+        const confetis = []; // Array para guardar todos los confetis
+        
+        // Crear confeti
+        function crearConfeti() {
+            const confeti = document.createElement('div');
+            confeti.className = 'confeti';
+            
+            // Posición aleatoria en la pantalla
+            confeti.style.left = Math.random() * window.innerWidth + 'px';
+            confeti.style.top = -10 + 'px'; // Empiezan arriba de la pantalla
+            
+            // Tamaño aleatorio
+            const size = Math.random() * 10 + 5;
+            confeti.style.width = size + 'px';
+            confeti.style.height = size + 'px';
+            
+            // Color aleatorio
+            confeti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Forma aleatoria (50% de probabilidad de ser cuadrado)
+            if (Math.random() > 0.5) {
+                confeti.style.borderRadius = '0';
+            }
+            
+            // Rotación inicial
+            confeti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            document.body.appendChild(confeti);
+            confetis.push(confeti); // Guardamos la referencia
+            
+            // Animación
+            animarConfeti(confeti);
+        }
+        
+        // Animación del confeti
+        function animarConfeti(confeti) {
+            let posY = -10;
+            let rotation = parseInt(confeti.style.transform.match(/\d+/)[0] || 0);
+            let velocityY = Math.random() * 3 + 1;
+            let velocityX = (Math.random() - 0.5) * 2;
+            let rotationSpeed = (Math.random() - 0.5) * 20;
+            
+            function frame() {
+                posY += velocityY;
+                rotation += rotationSpeed;
+                
+                const posX = parseFloat(confeti.style.left) + velocityX;
+                
+                confeti.style.top = posY + 'px';
+                confeti.style.left = posX + 'px';
+                confeti.style.transform = `rotate(${rotation}deg)`;
+                
+                // Solo continuar la animación si el confeti está dentro de la pantalla
+                if (posY < window.innerHeight && posX > 0 && posX < window.innerWidth) {
+                    requestAnimationFrame(frame);
+                }
+            }
+            
+            frame();
+        }
+        
 
 
+        function mostrarConfeti() {
+            // Crear múltiples confetis al inicio
+            for (let i = 0; i < 100; i++) {
+                setTimeout(crearConfeti, Math.random() * 5000);
+            }
+            
+            // Eliminar todos los confetis después de 5 segundos
+            setTimeout(() => {
+                confetis.forEach(confeti => {
+                    if (confeti.parentNode) {
+                        confeti.parentNode.removeChild(confeti);
+                    }
+                });
+                confetis.length = 0; // Limpiar el array
+            }, 5000);
+            
+            
+            // Opcional: Botón para activar el confeti nuevamente
+            /*
+            const boton = document.createElement('button');
+            boton.textContent = '¡Más Confeti!';
+            boton.style.position = 'fixed';
+            boton.style.bottom = '20px';
+            boton.style.left = '50%';
+            boton.style.transform = 'translateX(-50%)';
+            boton.style.padding = '10px 20px';
+            boton.style.zIndex = '1000';
+            boton.addEventListener('click', () => {
+                // Crear nuevos confetis
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(crearConfeti, Math.random() * 5000);
+                }
+                
+                // Eliminar después de 5 segundos
+                setTimeout(() => {
+                    confetis.forEach(confeti => {
+                        if (confeti.parentNode) {
+                            confeti.parentNode.removeChild(confeti);
+                        }
+                    });
+                    confetis.length = 0;
+                }, 5000);
+            });
+            
+            document.body.appendChild(boton);
+            */
+        }
 
 // ****************************************
 // Iniciar la aplicación cuando el DOM esté listo

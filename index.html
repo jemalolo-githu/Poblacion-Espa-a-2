@@ -33,7 +33,7 @@
    <div class="contenedor-de-botones">
         <button id="boton-FondoDelMar" title="Poner de Color azul al mar">&#9973;</button>   
         <button id="boton-FotoProvincia" title="Mostrar fotos de las provincias">&#x1F4F7;</button>
-        <button id="boton-Mostrar-Estadisticas" title="Mostrar intentos, aciertos y fallos">&sum;</button>
+        <button id="boton-Mostrar-Estadisticas" title="Mostrar estadísticas de aciertos">📊</button>
    </div>
 
 
@@ -115,7 +115,7 @@
         <div class="div-flotante-header" id="div-flotante-header">
             <div class="div-flotante-title" id="div-flotante-title">Foto</div>
             <div class="div-flotante-controls">
-                <button class="window-btn" id="div-flotante-actionBtn-azar">Foto al Azar</button>
+                <button class="window-btn" id="div-flotante-actionBtn-azar" title="Cuando se muestre la siguiente foto&#13;deberá responder haciendo clic en&#13;la provincia que se muestre en la foto" >Pregunta al Azar</button>
                 <button class="window-btn close-btn" id="div-flotante-closeBtn">&times;</button>
             </div>
         </div>
@@ -146,13 +146,25 @@
     <!-- Elementos de audio (ocultos) -->
     <audio id="aciertoSound" src="mp3/acierto.mp3" preload="auto"></audio>
     <audio id="falloSound" src="mp3/fallo.mp3" preload="auto"></audio>
+    <audio id="finalSound" src="mp3/final.mp3" preload="auto"></audio>
 
 
     <div class="contenedor-estadisticas" id="contenedor-estadisticas">
-        <h2>Estadísticas</h2>
+        <div class="estadisticas-header" id="estadisticas-header">
+            <div class="estadisticas-title" id="estadisticas-title">Estadísticas</div>
+            <div class="estadisticas-controls">
+                <button class="window-btn close-btn" id="estadisticas-closeBtn">&times;</button>
+            </div>
+        </div>
+        
+        <!--<h2>Estadísticas</h2>-->
         <div class="stat">
-            <span>Intentos:</span>
-            <span id="intentos" class="stat-value">0</span>
+            <span>Usuario:</span>
+            <input type="text" id="usuario" class="stat-value"/>
+        </div>
+        <div class="stat">
+            <span>Preguntas:</span>
+            <span id="preguntas" class="stat-value">0</span>
         </div>
         <div class="stat">
             <span>Aciertos:</span>
@@ -166,7 +178,7 @@
             <span>Porcentaje:</span>
             <span id="porcentaje" class="stat-value">0%</span>
         </div>
-        <button id="reset">Reiniciar</button>
+        <button id="reset" onclick="reiniciarEstadisticas();">Finalizar tanda</button>
     </div>
    
 
