@@ -94,11 +94,17 @@ const datosDeProvincias = [
 
 // Variables de estado
 let provinciasSeleccionadas = [];
+let estoyJugando = false;
+let preguntas = 0;
+let aciertos = 0;
+let fallos = 0;
 
+
+// ***********************
 function cargarMapaSVG() {
-    // CARGAR EL MAPA SVG
+// CARGAR EL MAPA SVG
   fetch("svg/spain-provinces.svg")
- 
+  
     .then(response => response.text())
     .then(svgData => {
         // meto el codigo HTML en el div del mapa
@@ -111,7 +117,7 @@ function cargarMapaSVG() {
         
         if (svgElement) {
             // Aplicamos escala CSS
-            svgElement.style.transform = 'scale(1.5)';
+            svgElement.style.transform = 'scale(1.4)';
             svgElement.style.transformOrigin = 'top left'; // Escala desde la esquina superior izquierda
             
             // Aseguramos que el contenedor no recorte el SVG escalado
@@ -123,24 +129,31 @@ function cargarMapaSVG() {
         
 
     
-
+        // Crear los eventos y los titles de cada provincia (del mapa)
         const paths = container.querySelectorAll("path");
-        // const display = document.getElementById("selected-name");
-
-        // Crear los eventos de cada provincia (del mapa)
        
         paths.forEach(path => {
-            
-            // los titles se muestran solos si está en formato <path d="..." id=".."><title></title><path>
-            
-            // Eventos click para marcar y desmarcar
-           
-            const id = path.id;
-            
-            path.addEventListener("click", () => {
-                toggleProvince(path.id);
-            });
-      });
+            if(path.childNodes.length>0) {
+               
+                // Eventos click para marcar y desmarcar
+                path.addEventListener("click", () => {
+                    toggleProvince(path.id);
+                });
+                
+                // los titles se muestran solos si está en formato <path d="..." id=".."><title></title><path></path>
+                // Añado la pobalción a los titles de cada provincia
+                let title = path.querySelector('title');
+                if (title) {
+                    
+                    const provincia = datosDeProvincias.find(p => p.id === path.id);
+                    if (provincia) {
+                        
+                        title.textContent = title.textContent + '\n' + parseInt(provincia.population).toLocaleString();
+                    }
+                }   
+                
+            }
+        });
     });
 }
    
@@ -154,22 +167,81 @@ function inicio() {
     crearPanelDeComunidades();                  // Crear el panel de checkboxes
     setupFilter();                              // crear evento para el botón filtrar por poblacion
     setupSelectAll();                           // Crear evento checkbox Seleccionar todas las provincias
-    //actualizarPoblacionSeleccionada();
+    setupBotonColorFondoMapa();                 // Crear evento de darle color al agua del mapa
+    
+    getLocalStorageColoresMapa();               // 1º) Leer los colores del local Storage
+    change5FillColorsClass() ;                  // 2º) Asignar los colores de las provincias ( y se guardan automáticamente en el localStorage)
 }
 
+
+// ***************************
+// Leer del localStorage
+function getLocalStorageColoresMapa() {
+  const clave = 'coloresDelMapa';
+  const defaults = ["#eee2b3","#bdeeb3","#b3eeee","#ab9fe4","#e79191"];
+  try {
+    coloresDelMapa = JSON.parse(localStorage.getItem(clave)) || defaults;
+  } catch { 
+    localStorage.setItem(clave, JSON.stringify(defaults));
+    
+  }
+  let n=1;
+  coloresDelMapa.forEach(color =>  {
+    
+    document.getElementById("color"+n).value = color;
+    n++;
+  });
+ guardarLocalStorageColoresDelMapa();
+}
+
+// *************************
+// Guardar colores del mapa en el localstorage
+function guardarLocalStorageColoresDelMapa() {
+
+  // Guardar en localStorage
+  const nuevosColores =[];
+  for(var i=0;i<5;i++) {
+    nuevosColores[i] = document.getElementById(`color${i+1}`).value;
+  }
+
+  try {
+    localStorage.setItem("coloresDelMapa", JSON.stringify(nuevosColores));
+    return true;
+  } catch (e) {
+    alert("Error al guardar en localStorage:", e);
+    return false;
+  }
+}
+
+// *********************************
+// Configurar el checkbox "Poner fondo azul al mapa"
+function setupBotonColorFondoMapa() {
+    const botonFondoDelMar  = document.getElementById("boton-FondoDelMar");
+    const contenedorDelMapa = document.getElementById("contenedor-del-mapa");
+    botonFondoDelMar.addEventListener("click",function() {
+       
+        if (contenedorDelMapa.style.backgroundColor=="" || contenedorDelMapa.style.backgroundColor == "rgb(245, 245, 245)") {
+            contenedorDelMapa.style.backgroundColor = "rgb(202,220,229)";    // #f5f5f5
+            contenedorDelMapa.style.border="2px solid rgb(177, 194, 206)";  //var(--primary-color);
+        } else {
+            contenedorDelMapa.style.backgroundColor = "rgb(245,245,245)";    // "#cadce5";   // var(secondary color)
+            contenedorDelMapa.style.border="0px";
+        } 
+        
+    });
+}
 
 // *********************************
 // Configurar el checkbox "Seleccionar todas"
 function setupSelectAll() {
+
     const selectAllCheckbox = document.getElementById('select-all-provinces');
     
     selectAllCheckbox.addEventListener('change', function() {
         if (this.checked) {
             selectAllProvinces();
         } else {
-            
             resetSelection();
-            
         }
     });
 }
@@ -392,7 +464,36 @@ function toggleProvince(provinciaId, isChecked = null) {
     actualizarAreasSeleccionadas();
     actualizarPoblacionSeleccionada();
     actualizarListaDeProvincias();
+    
+    // Mostrar la foto o comprobar si has acertado la foto presentada
+    if (document.getElementById("div-flotante").style.display=="block") {
+        if (estoyJugando) {
+            // Comprobar si la provincia clickada es la de la foto presentada
+            const nombreFoto = document.getElementById("div-flotante").style.backgroundImage;    
+             
+            if ('url("img/'+provinciaId+'.jpg")'==nombreFoto){
+                
+                aciertos++;
+                avisarAcierto();
+            }else {
+                
+                fallos++;
+                avisarFallo();
+            }
+
+        } else {
+             mostrarFotoProvincia(provinciaId);
+        }
+    } else {
+        
+        dejarDeJugar();
+        
+        // alert("No muestro la foto");
+    }
+
 }
+
+
 
 
 
@@ -489,24 +590,37 @@ function actualizarAreasSeleccionadas() {
     areas.forEach(area => {
         
         const isSelected = provinciasSeleccionadas.find(p => p.id === area.id);
+        area.removeAttribute("class");
         if (isSelected) {
-            area.classList.add('selected');
+            //console.log(parseInt(isSelected.population));
+          
+            switch (true) {
+                case parseInt(isSelected.population)<250000:
+                    area.classList.add('selected-0-250m');
+                    break;
+                case parseInt(isSelected.population)<500000:
+                    area.classList.add('selected-250-500m');
+                    break;
+                case parseInt(isSelected.population)<1000000:
+                    area.classList.add('selected-500-1M');
+                    break;
+                case parseInt(isSelected.population)<2000000:
+                    area.classList.add('selected-1-2M');
+                    break;
+                case parseInt(isSelected.population)<10000000:
+                    area.classList.add('selected-2-100M');
+                    break;
+                
+                default:
+                
+                    area.classList.add('selected');
+                
+                    
+                    
+            }
         } else {
-            area.classList.remove('selected');
+             area.classList.add('no-selected');
         }
-        /*
-        if (path.classList.contains("selected")) {
-            path.classList.remove("selected");
-            provinciasSeleccionadas = provinciasSeleccionadas.filter(p => p !== id);
-        } else {
-            path.classList.add("selected");
-            provinciasSeleccionadas.push(id);
-        }
-        */
-
-
-
-
 
     });
 }
@@ -592,6 +706,328 @@ function actualizarListaDeProvinciasOrdenadas() {
     list.appendChild(subList);
     
 }
+
+
+
+// *******************************************
+//  Elementos de la gama de colores para las provincias
+// Función para aplicar las gamas de colores
+function applyColorScheme(baseColor) {
+    if (baseColor=="arcoIris") {
+         // Colores variados
+         document.getElementById("color1").value ="#eee2b3";
+         document.getElementById("color2").value ="#bdeeb3";
+         document.getElementById("color3").value ="#b3eeee";
+         document.getElementById("color4").value ="#ab9fe4";
+         document.getElementById("color5").value ="#e79191";
+
+    } else {
+        const colors = generateColorScheme(baseColor);
+        // Asignar los colores a los inputs
+        for (let i = 0; i < 5; i++) {
+            const colorInput = document.getElementById(`color${i+1}`);        
+            colorInput.value = colors[i];
+        
+        }
+    }
+    change5FillColorsClass();
+    
+}
+
+
+
+
+function change5FillColorsClass() {
+    changeFillColorClass(".selected-0-250m",    document.getElementById("color1").value);
+    changeFillColorClass(".selected-250-500m", document.getElementById("color2").value);
+    changeFillColorClass(".selected-500-1M",    document.getElementById("color3").value);
+    changeFillColorClass(".selected-1-2M",      document.getElementById("color4").value);
+    changeFillColorClass(".selected-2-100M",    document.getElementById("color5").value);
+    
+    // Actualizamos y guardamos en el localStorage los colores
+    guardarLocalStorageColoresDelMapa();
+}
+
+function changeFillColorClass(miClase,elNuevoValor) {
+    // Busca en todas las hojas de estilo del documento
+    const hojasDeEstilo = document.styleSheets;
+    
+    for (let i = 0; i < hojasDeEstilo.length; i++) {
+        const reglas = hojasDeEstilo[i].cssRules || hojasDeEstilo[i].rules;
+        
+        for (let j = 0; j < reglas.length; j++) {
+            // Si encuentra la clase .miClaseFill, cambia su fill
+            if (reglas[j].selectorText === miClase) {
+                reglas[j].style.fill = elNuevoValor; // Cambia de color
+                return; // Termina después de aplicar el cambio
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+// Función para generar las gamas de colores
+function generateColorScheme(baseColor) {
+    let baseHue;
+    
+    // Definir el tono base según el color seleccionado
+    switch(baseColor) {
+        case 'green':
+            baseHue = 120;
+            break;
+        case 'yellow':
+            baseHue = 60;
+            break;
+        case 'blue':
+            baseHue = 240;
+            break;
+        case 'red':
+            baseHue = 0;
+            break;
+        default:
+            baseHue = 0;
+    }
+    
+    const colors = [];
+    
+    // Generar 5 tonos variando saturación y luminosidad
+    for (let i = 4; i >=0; i--) {
+        const saturation = 70 + Math.floor(Math.random() * 30); // 70-100%
+        const lightness = 30 + (i * 15); // 30%, 45%, 60%, 75%, 90%
+        
+        colors.push(hslToHex(baseHue, saturation, lightness));
+    }
+    
+    return colors;
+}
+
+// Función para convertir HSL a HEX
+function hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+/* ****************************** */
+/* funciones para el div flotante */
+/* ****************************** */
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingWindow = document.getElementById('div-flotante');
+    const windowHeader = document.getElementById('div-flotante-header');
+    const closeBtn = document.getElementById('div-flotante-closeBtn');
+    const actionBtn = document.getElementById('div-flotante-actionBtn-azar');
+
+    // Posición inicial centrada
+    positionWindow();
+
+    // Función para posicionar la ventana centrada
+    function positionWindow() {
+        const windowWidth = floatingWindow.offsetWidth;
+        const windowHeight = floatingWindow.offsetHeight;
+        
+        floatingWindow.style.left = `${(window.innerWidth - windowWidth) / 2}px`;
+        floatingWindow.style.top = `${(window.innerHeight - windowHeight) / 2}px`;
+    }
+
+    // Mover la ventana
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    windowHeader.addEventListener('mousedown', function(e) {
+        // Solo iniciar el arrastre si no estamos en un botón de redimensionar
+        const computedStyle = window.getComputedStyle(floatingWindow);
+        const cursor = computedStyle.getPropertyValue('cursor');
+        
+        if (cursor !== 'nwse-resize' && cursor !== 'nesw-resize' && 
+            cursor !== 'ew-resize' && cursor !== 'ns-resize') {
+            isDragging = true;
+            offsetX = e.clientX - floatingWindow.getBoundingClientRect().left;
+            offsetY = e.clientY - floatingWindow.getBoundingClientRect().top;
+            floatingWindow.style.cursor = 'grabbing';
+        }
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            let newLeft = e.clientX - offsetX;
+            let newTop = e.clientY - offsetY;
+
+            // Limitar para que no salga de la pantalla
+            const windowWidth = floatingWindow.offsetWidth;
+            const windowHeight = floatingWindow.offsetHeight;
+
+            newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - windowWidth));
+            newTop = Math.max(0, Math.min(newTop, window.innerHeight - windowHeight));
+
+            floatingWindow.style.left = `${newLeft}px`;
+            floatingWindow.style.top = `${newTop}px`;
+        }
+    });
+    
+    // Ratón por encima - no mover - cursor normal
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+        floatingWindow.style.cursor = '';
+    });
+
+    // Botón de cerrar
+    closeBtn.addEventListener('click', function() {
+        floatingWindow.style.display = 'none';
+        
+        // Dejar de jugar
+        dejarDeJugar();
+        
+    });
+
+    // Botón de acción
+    actionBtn.addEventListener('click', function() {
+        // Mostrar una foto de provincia aleatoriamente
+        mostrarFotoAleatoriaDeProvincia();
+    });
+
+    // Ajustar posición al cambiar el tamaño de la ventana
+    window.addEventListener('resize', function() {
+        const rect = floatingWindow.getBoundingClientRect();
+        
+        // Verificar si la ventana está fuera de los límites después del resize
+        const windowWidth = floatingWindow.offsetWidth;
+        const windowHeight = floatingWindow.offsetHeight;
+        
+        let newLeft = parseFloat(floatingWindow.style.left) || rect.left;
+        let newTop = parseFloat(floatingWindow.style.top) || rect.top;
+        
+        newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - windowWidth));
+        newTop = Math.max(0, Math.min(newTop, window.innerHeight - windowHeight));
+        
+        floatingWindow.style.left = `${newLeft}px`;
+        floatingWindow.style.top = `${newTop}px`;
+    });
+});
+
+
+// Evento para mostrar/ocultar las estadisticas (fija en la parte superior izquierda)
+const e = document.getElementById("boton-Mostrar-Estadisticas");
+e.addEventListener("click",()=>{
+    const f = document.getElementById("contenedor-estadisticas");
+    if (f.style.display=="block") {
+        f.style.display="none"; 
+    } else {
+        f.style.display="block";
+    }
+});
+
+
+// Evento de alternar ver / ocultar la foto en el div flotante
+const e1 = document.getElementById("boton-FotoProvincia");
+e1.addEventListener("click",()=>{
+    const f1 = document.getElementById("div-flotante");
+    if (f1.style.display=="block"){
+        f1.style.display="none"; 
+        
+        // Dejar de jugar
+        dejarDeJugar();
+        
+
+    } else {
+        f1.style.display="block";
+        // estoyJugando será true solo cunado pulse boton adivinar
+    }
+});
+
+// ********************
+function  mostrarFotoProvincia(provinciaId){
+
+    const e = document.getElementById("div-flotante");
+    const isSelected = datosDeProvincias.find(p => p.id === provinciaId);
+   
+    if (isSelected) {
+        const imgsrc = "img/"+provinciaId+".jpg";
+        e.style.backgroundImage = "url("+imgsrc+")";
+        document.getElementById("div-flotante-title").title = isSelected.name;
+        e.display="block";
+    } else {
+         e.style.backgroundImage="none";
+         document.getElementById("div-flotante-title").title = "";
+    } 
+}
+
+// *********************
+function mostrarFotoAleatoriaDeProvincia() {
+    // Math.random() * (max - min) + min;        Aleatorio entre min y max-1   
+    const nAzar = parseInt(Math.random() * (datosDeProvincias.length - 0) + 0);       //( 0 y 52)    min = 0   max = datosDeProvincias.length (-1)
+    const provElegida = datosDeProvincias[nAzar];
+    if(provElegida.id) {
+        estoyJugando=true;
+        preguntas++;
+        mostrarFotoProvincia(provElegida.id);
+    }else{
+        alert("No existe la provincia num "+nAzar);
+    }
+}
+
+
+
+// Aciertos y fallos        **********************************************
+// Obtener elementos del DOM
+// const aciertoBtn = document.getElementById('acierto');
+// const falloBtn = document.getElementById('fallo');
+const aciertoModal = document.getElementById('aciertoModal');
+const falloModal = document.getElementById('falloModal');
+const aciertoSound = document.getElementById('aciertoSound');
+const falloSound = document.getElementById('falloSound');
+
+
+
+// Función para mostrar el modal
+function mostrarModal(modalId) {
+    document.getElementById(modalId).style.display = 'flex';
+}
+
+// Función para cerrar el modal
+function cerrarModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Cerrar el modal haciendo clic fuera del contenido
+window.addEventListener('click', function(event) {
+    if (event.target.className === 'modal') {
+        event.target.style.display = 'none';
+    }
+});
+
+function dejarDeJugar() {
+    estoyJugando = false;   // por si acaso
+    preguntas = 0;
+    aciertos= 0;
+    fallos = 0;
+}
+
+// *********************
+function avisarAcierto() {
+    mostrarModal('aciertoModal');
+    aciertoSound.currentTime = 0; // Reiniciar el sonido si ya estaba reproduciéndose
+    aciertoSound.play();
+
+}
+
+// *********************
+function avisarFallo() {
+    mostrarModal('falloModal');
+    falloSound.currentTime = 0;
+    falloSound.play();
+}
+
+
 
 
 

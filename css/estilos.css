@@ -17,14 +17,16 @@ body {
     background-color: var(--white-color);
     color: #333;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+
 }
 
 svg {
-    width: 100%;
-    max-width: 900px;
-    margin-top: 20px;
+    /*width: 100%;*/
+    max-width: 600px;
+    
 }
+
 path {
     fill: #d3d3d3;
     stroke: #333;
@@ -37,19 +39,38 @@ path:hover {
     fill: #999;
 }
 
+/*
 .selected {
     fill: #4caf50 !important;
 }
+*/
 
-.custom-tooltip {
-  position: absolute;
-  background: #333;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  z-index: 1000;
+.no-selected {
+    fill: #d3d3d3; !important;
 }
+
+/* gradiente de colores para las provincias en función de los habitantes */
+.selected-0-250m { fill: #d5e7d6 !important}
+.selected-250-500m { fill: #85b186 !important}
+.selected-500-1M { fill: #478348 !important}
+.selected-1-2M { fill: #317933 !important}
+.selected-2-100M { fill: #105c13 !important}
+
+.contenedor-gradienteDeColores, label {
+    font-size:12px;
+}
+
+.gradiente-botones {
+    width:60px;
+    height:20px;
+    font-size:12px;
+}
+
+#gradiente-gama-verde-btn{ background-color:#037007}
+#gradiente-gama-amarillo-btn{ background-color:#037007}
+#gradiente-gama-rojo-btn{ background-color:#037007}
+#gradiente-gama-azul-btn{ background-color:#037007}
+
 
 
 h1 {
@@ -80,24 +101,49 @@ h1 {
 .contenedor-de-comunidades {
     width: 300px;
     height:680px;
-    margin-right: 20px;
+    overflow:auto;
+    margin-right: 10px;
     border: 2px solid var(--primary-color);
     padding:10px;
     border-radius:10px;
-    overflow:auto;
+   
+}
+
+.contenedor-de-botones{
+    display:flex;
+    flex-direction:column;
+}
+
+#boton-FondoDelMar, #boton-FotoProvincia{
+    cursor:pointer;
+    font-size:30px;
+    border:0px;
+}
+
+#boton-FondoDelMar:hover, #boton-FotoProvincia:hover {
+    background-color: #2980b9;
+}
+
+.contenedor-mapa-y-gradientes {
+    width:700Px;
+    display:flex;
+    flex-direction: column;
+    
 }
 
 .contenedor-del-mapa  {
     position: relative;
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 660px;
     overflow:hidden;
+    /*
     background-color: var(--secondary-color);
-    border: 2px solid var(--primary-color);
-   
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
+   */
     border-radius: 8px;
     flex-grow: 1;
-    padding-left:50px;
+    padding-left:20px;
 
 }
 
@@ -126,7 +172,7 @@ h1 {
 .resultados {
     position:sticky;
     top:0;
-    z-index:999;
+    z-index:998;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
@@ -227,12 +273,17 @@ h1 {
 
 /* Filtros */
  .filter-container {
-    margin-bottom: 20px;
+    margin-top:10px;
+    margin-bottom: 10px;
     padding: 15px;
+    width:100%;
     background-color: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #ddd;
     display:flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+    gap: 10px; /* Espacio entre divs */
+    
 }
 
 .filter-title {
@@ -289,3 +340,311 @@ h1 {
 #min-population, #max-population{
     text-align:right;
 }
+
+
+/*   Gama de colores para el mapa */
+/* ***************************** */
+.container-colores{
+    display:flex;
+    flex-direction:row;
+    margin-top:10px;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+}
+
+.color-container {
+    
+    display: flex;
+    width: 500px; /* 5 inputs × 100px cada uno */
+   
+}
+
+.color-container input[type="color"] {
+    width: 100px;
+    height: 20px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+/* Eliminar el borde entre inputs */
+/*
+.color-input input[type="color"]:not(:first-child) {
+    margin-left: -4px;
+}
+*/
+
+
+
+.color-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*width:100px;*/
+}
+
+.color-input label {
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size:12px;
+   
+}
+
+
+
+
+
+.buttons-colores {
+    display: flex;
+    justify-content: right;
+    gap: 0px;
+    padding-top:10px;
+    /*flex-wrap: wrap;*/
+    margin-bottom: 0px;
+    width:120px;
+    border:0px solid red;
+    
+}
+
+.color-btn {
+    padding: 0px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width:20px;
+    height:20px;
+    margin-left:5px;
+}
+
+.color-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.green {
+    background-color: #2ecc71;
+}
+
+.yellow {
+    background-color: #f1c40f;
+}
+
+.blue {
+    background-color: #3498db;
+}
+
+.red {
+    background-color: #e74c3c;
+}
+
+
+.arcoIris {
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+
+/* Div flotante paramostrar fotos */
+.div-flotante {
+    position: fixed;
+    width: 400px;
+    height: 300px;
+
+    border-radius: 5px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index:999;
+    
+    resize: both; /* Permite redimensionar en horizontal y vertical */
+    min-width: 200px;
+    min-height: 150px;
+    max-width: 90vw;
+    max-height: 90vh;
+
+    /* Fondo: imagen completa sin deformar */
+    background-size: contain; /* Muestra la imagen entera */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f0f0f0; /* Color de fondo si la imagen no cubre todo */
+
+    display:none;
+    
+}
+
+.div-flotante-header {
+    padding: 8px 12px;
+    background-color: #34495e;
+    color: white;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+div-flotante-title {
+    font-weight: bold;
+}
+
+.div-flotante-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.div-flotante-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.div-flotante-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.div-flotante-close-btn {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.div-flotante-close-btn:hover {
+    background: #e74c3c;
+}
+
+
+
+
+
+/*   Modales de acierto y fallo */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 80%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: modalopen 0.5s;
+}
+
+@keyframes modalopen {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.acierto-icon {
+    color: #4CAF50;
+}
+
+.fallo-icon {
+    color: #f44336;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+
+/*  Estadisticas de aciertos */
+/* Panel de estadísticas */
+
+.contenedor-estadisticas {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+    /* flotante*/
+    position: fixed; /* Fija el elemento en la pantalla */
+    top: 20px;          /* Lo coloca en la parte superior */
+    left: 20px;         /* Lo coloca en la parte izquierda */
+    z-index: 1000; 
+    display:none;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.stat:last-child {
+    border-bottom: none;
+}
+
+.stat-value {
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 5px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#acierto {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#fallo {
+    background-color: #f44336;
+    color: white;
+}
+
+#reset {
+    background-color: #2196F3;
+    color: white;
+    margin-top: 20px;
+}    

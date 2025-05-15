@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h1>Población de España por provincias</h1>
+    <h1>Provincias de España</h1>
    
     <div class="resultados">
         <div class="resultados-item">
@@ -20,19 +20,67 @@
         </div>
     </div>
 	
-   <p id="selected-name" hidden>Ninguna provincia seleccionada</p>
+  
    
    <div class="contenedor-de-comunidades" id="contenedor-de-comunidades">
         <div class="select-all-container">
-            <input type="checkbox" id="select-all-provinces" class="select-all-checkbox">
+            <input type="checkbox" id="select-all-provinces" class="select-all-checkbox" >
             <label for="select-all-provinces" class="select-all-label">Todas las provincias</label>
         </div>
         <!-- Después, el Panel de comunidades y provincias se generará con JavaScript -->
     </div>
-   
-   <div class="contenedor-del-mapa" id="contenedor-del-mapa"></div>
-   
-   <div class="filter-container">
+
+   <div class="contenedor-de-botones">
+        <button id="boton-FondoDelMar" title="Poner de Color azul al mar">&#9973;</button>   
+        <button id="boton-FotoProvincia" title="Mostrar fotos de las provincias">&#x1F4F7;</button>
+        <button id="boton-Mostrar-Estadisticas" title="Mostrar intentos, aciertos y fallos">&sum;</button>
+   </div>
+
+
+   <div class="contenedor-mapa-y-gradientes">
+        <div class="contenedor-del-mapa" id="contenedor-del-mapa"></div>
+
+        <div class="container-colores">
+       
+            <div class="color-container">
+                <div class="color-input">
+                    <label for="color1">0-250 mil</label>
+                    <input type="color" value="#ff0000" id="color1" onchange="change5FillColorsClass();">
+                </div>
+                <div class="color-input">
+                    <label for="color2">250-500 mil</label>
+                    <input type="color" value="#ff9900" id="color2"  onchange="change5FillColorsClass();">
+                </div>
+                <div class="color-input">
+                    <label for="color3">500-1 Millón</label>
+                    <input type="color" value="#ffff00" id="color3"  onchange="change5FillColorsClass();">
+                </div>
+                <div class="color-input">
+                    <label for="color4">1-2 Millones</label>
+                    <input type="color" value="#00ff00" id="color4"  onchange="change5FillColorsClass();">
+                </div>
+                <div class="color-input">
+                    <label for="color5">+2 Millones</label>
+                    <input type="color" value="#0000ff" id="color5"  onchange="change5FillColorsClass();">
+                </div>
+            </div>
+            
+            <div class="buttons-colores">
+                <button class="color-btn green"     title="Gama verde"      onclick="applyColorScheme('green')"> </button>
+                <button class="color-btn yellow"    title="Gama amarillo"   onclick="applyColorScheme('yellow')"> </button>
+                <button class="color-btn blue"      title="Gama azul"       onclick="applyColorScheme('blue')"> </button>
+                <button class="color-btn red"       title="Gama rojo"       onclick="applyColorScheme('red')"> </button>
+                <button class="color-btn arcoIris"  title="Gama arcoIris"   onclick="applyColorScheme('arcoIris')">&#127752; </button>
+            </div>
+            
+            
+        </div>
+    
+    </div>
+    
+    <!-- Filtro de Población -->
+    <div class="filter-container">
+        
         <div class="filter-title">Filtrar por población. </div>
         <div class="filter-controls">
             Mayor de <input type="text" id="min-population" class="filter-input" placeholder="Mínimo">
@@ -46,6 +94,8 @@
         Población total de las provincias seleccionadas: <span id="total-display-poblacion">0</span> habitantes
     </div>
     
+
+    <!-- Listados de provincias seleccionadas -->
     <div class="listas">
         <div class="provincias-seleccionadas" id="provincias-seleccionadas-list">
             <h3>Provincias seleccionadas:</h3>
@@ -59,8 +109,71 @@
         
     </div>
 
+    <!--    DIV flotante para fotos   -->
+
+    <div class="div-flotante" id="div-flotante">
+        <div class="div-flotante-header" id="div-flotante-header">
+            <div class="div-flotante-title" id="div-flotante-title">Foto</div>
+            <div class="div-flotante-controls">
+                <button class="window-btn" id="div-flotante-actionBtn-azar">Foto al Azar</button>
+                <button class="window-btn close-btn" id="div-flotante-closeBtn">&times;</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Modales Acierto y fallo -->
+     <!-- Modal de Acierto -->
+    <div id="aciertoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon acierto-icon">✓</div>
+            <h2>¡Correcto!</h2>
+            <p>Has acertado. ¡Buen trabajo!</p>
+            <button onclick="cerrarModal('aciertoModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Fallo -->
+    <div id="falloModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon fallo-icon">✗</div>
+            <h2>¡Incorrecto!</h2>
+            <p>Has cometido un error. ¡Sigue intentándolo!</p>
+            <button onclick="cerrarModal('falloModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Elementos de audio (ocultos) -->
+    <audio id="aciertoSound" src="mp3/acierto.mp3" preload="auto"></audio>
+    <audio id="falloSound" src="mp3/fallo.mp3" preload="auto"></audio>
+
+
+    <div class="contenedor-estadisticas" id="contenedor-estadisticas">
+        <h2>Estadísticas</h2>
+        <div class="stat">
+            <span>Intentos:</span>
+            <span id="intentos" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+            <span>Aciertos:</span>
+            <span id="aciertos" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+            <span>Fallos:</span>
+            <span id="fallos" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+            <span>Porcentaje:</span>
+            <span id="porcentaje" class="stat-value">0%</span>
+        </div>
+        <button id="reset">Reiniciar</button>
+    </div>
    
-   <script src="js/javascript.js"></script>
+
+
+
+
+    <script src="js/javascript.js"></script>
 
    
 </body>
