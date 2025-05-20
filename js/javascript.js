@@ -94,6 +94,7 @@ const datosDeProvincias = [
 
 // Variables de estado
 let provinciasSeleccionadas = [];
+let bomboDeProvincias = []; for(var i=0;i<52;i++) {bomboDeProvincias.push(i)};
 let estoyJugando = false;
 let preguntas = 0;
 let aciertos = 0;
@@ -965,16 +966,36 @@ function  mostrarFotoProvincia(provinciaId){
 
 // *********************
 function mostrarFotoAleatoriaDeProvincia() {
+   
     // Math.random() * (max - min) + min;        Aleatorio entre min y max-1   
-    const nAzar = parseInt(Math.random() * (datosDeProvincias.length - 0) + 0);       //( 0 y 52)    min = 0   max = datosDeProvincias.length (-1)
-    const provElegida = datosDeProvincias[nAzar];
-    if(provElegida.id) {
-        estoyJugando=true;
-        preguntas++;
-        mostrarFotoProvincia(provElegida.id);
-    }else{
-        alert("No existe la provincia num "+nAzar);
+    if (bomboDeProvincias.length>0) {
+       
+        const nAzar = parseInt(Math.random() * ( bomboDeProvincias.length-1  - 0 ) + 0);
+        //console.log("Elegida pos: "+nAzar+" Provincia nº"+bomboDeProvincias[nAzar]);
+        
+        const provElegida = datosDeProvincias[bomboDeProvincias[nAzar]];
+
+        // retiro la provincia elegida del bombo para que no salga más
+        bomboDeProvincias.splice(nAzar, 1);
+      
+        if(provElegida.id) {
+            estoyJugando=true;
+            preguntas++;
+            mostrarFotoProvincia(provElegida.id);
+             actualizarEstadisticas();
+        }else{
+            alert("No existe la provincia num "+nAzar);
+        }
+
+    } else {
+        var res = confirm("Ya se han mostrado todas las provincias.\n¿ Otra tanda ?");
+        if (res) {
+            reiniciarEstadisticas();
+        } else {
+            alert("");
+        }
     }
+    
 }
 
 
@@ -1019,6 +1040,7 @@ function reiniciarEstadisticas() {
     aciertos= 0;
     fallos = 0;
     estoyJugando = false;
+    for(var i=0;i<52;i++) {bomboDeProvincias.push(i)};
     actualizarEstadisticas();
     
     finalSound.currentTime = 0;// Reiniciar el sonido si ya estaba reproduciéndose
