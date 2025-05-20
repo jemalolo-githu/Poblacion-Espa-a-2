@@ -1053,7 +1053,7 @@ function actualizarEstadisticas() {
     document.getElementById("preguntas").textContent = preguntas;
     document.getElementById("aciertos").textContent = aciertos;
     document.getElementById("fallos").textContent = fallos;
-    if (preguntas>0) {
+    if ( (aciertos+fallos)>0 && preguntas>0) {
         document.getElementById("porcentaje").textContent = (100*parseFloat(aciertos/(aciertos+fallos))).toFixed(2)+"%";
     } else {
         document.getElementById("porcentaje").textContent="0%";
